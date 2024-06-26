@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+
+  <script>
+
+    // 通过限制并发数，实现了并行执行任务的功能。
+    // 它会将源数据中的每个元素传递给迭代函数进行处理，将处理结果包装成 Promise 对象，并控制最大并发数，等待其中一个任务完成后再继续执行下一个任务，最后返回一个包含所有任务结果的 Promise 对象。
+    async function runParallel(maxConcurrency, source, iteratorFn) {
+    const ret = []
+    const executing = []
+    for (const item of source) {
+      const p = Promise.resolve().then(() => iteratorFn(item, source))
+      ret.push(p)
+
+      if (maxConcurrency <= source.length) {
+        const e = p.then(() => executing.splice(executing.index0f(e), 1))
+        executing.push(e)
+        if (executing.length >= maxConcurrency) {
+          await Promise.race(executing)
+        }
+      }
+    }
+    return Promise.all(ret)
+  }
+
+
+
+  </script>
+</body>
+</html>

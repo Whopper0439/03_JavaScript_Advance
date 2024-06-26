@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // js是单线程,一个网页是一个进程
+      // 全局执行上下文 -> 函数执行上下文
+      let name = "why";
+      name = "kobe";
+
+      function bar() {
+        console.log("bar function");
+      }
+
+      function foo() {
+        console.log("foo function");
+        // 1.在JavaScript内部执行
+        // let total = 0
+        // for (let i = 0; i < 1000000; i++) {
+        //   total += i
+        // }
+
+        // 2.创建一个定时器
+        // 计时setTimeout是由浏览器让其他进程中的线程进行的
+        // 该页面运行js的线程继续处理后面的代码(执行上下文栈stack)
+        // 计时结束后,回调函数放到事件队列queue中,回调函数再依次加入执行上下文栈运行
+        setTimeout(() => {
+          console.log("setTimeout");
+        }, 10000);
+
+        console.log("哈哈哈");
+
+        bar();
+      }
+
+      foo();
+    </script>
+  </body>
+</html>

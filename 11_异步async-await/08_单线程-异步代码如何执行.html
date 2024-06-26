@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>按钮</button>
+
+    <script>
+      const btn = document.querySelector("button");
+      btn.onclick = function () {
+        console.log("btn click event");
+      };
+
+      console.log("Hello World");
+      let message = "aaaa";
+      message = "bbbb";
+
+      // js是单线程,一个网页是一个进程
+      // 全局执行上下文 -> 函数执行上下文
+      // 事件循环: 执行上下文栈 -> 浏览器 -> 事件队列
+      // 计时setTimeout是由浏览器让其他进程中的线程进行的
+      // 该页面运行js的线程继续处理后面的代码(执行上下文栈stack)
+      // 计时结束后,浏览器将回调函数()=>{}放到事件队列queue中
+      // 等到执行上下文栈stack为空时,事件队列queue中的回调函数()=>{}再依次加入执行上下文栈stack运行
+      setTimeout(() => {
+        console.log("10s后的setTimeout");
+      }, 0);
+
+      console.log("Hello JavaScript");
+      console.log("代码继续执行~~~");
+      console.log("-------------");
+    </script>
+  </body>
+</html>

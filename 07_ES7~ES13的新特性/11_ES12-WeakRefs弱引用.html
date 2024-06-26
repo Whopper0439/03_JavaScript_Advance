@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+
+    let info = { name: "why", age: 18 }
+    // 1.默认强引用
+    // info,obj,obj2指向同一个对象{}
+    // 只有三个都为null时,对象{}才会被回收
+    // let obj = info
+    // let obj2 = info
+
+    // 2.WeakRef()弱引用
+    // info是强引用,obj、obj2是弱引用
+    // obj、obj2作为弱引用可忽略，当info为null时,对象{}即可被回收
+    let obj = new WeakRef(info)
+    let obj2 = new WeakRef(info)
+
+    const finalRegistry = new FinalizationRegistry(() => {
+      console.log("对象{}被回收")
+    })
+
+    finalRegistry.register(info, "info")
+
+    // info = null
+    // obj = null
+    // obj2 = null
+
+    setTimeout(() => {
+      info = null
+    }, 2000)
+
+    // 想要拿到WeakRef所指对象,不能直接obj,需要通过obj.deref()
+    // console.log(obj)
+    // console.log(obj.deref())
+
+    setTimeout(() => {
+      console.log(obj.deref().name, obj.deref().age)
+    }, 8000)
+
+  </script>
+
+</body>
+</html>

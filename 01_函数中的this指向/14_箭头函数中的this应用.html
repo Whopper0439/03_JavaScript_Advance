@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+
+    // 网络请求的工具函数
+    function request(url, callbackFn) {
+      var results = ["abc", "cba", "nba"]
+      callbackFn(results)
+    }
+
+    // 实际操作的位置(业务)
+    var obj = {
+      names: [],
+      network: function() {
+
+
+        // 0.两种问题
+        // request("/names", function(res) {
+        //   // obj.names = obj.names.concat(res)  // obj不够灵活
+        //   console.log(this)
+        //   // this.names = this.names.concat(res)  // this指向window
+        // })
+
+        // console.log(this)
+        // // 1.早期的解决
+        // var _this = this  // obj
+        // request("/names", function(res) {
+        //   console.log(this)  // window
+        //   _this.names = [].concat(res)
+        // })
+
+        // 2.箭头函数写法
+        request("/names", (res) => {
+          console.log(this) // obj
+          this.names = [].concat(res)
+          console.log(this) // obj
+        })
+      }
+    }
+
+    obj.network()
+    console.log(obj)
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    // const obj = {
+    //   name: "why",
+    //   age: 18,
+    //   // 1.和hasOwnProperty的区别一: 防止对象中也有一个自己的hasOwnProperty方法(重写覆盖)
+    //   hasOwnProperty: function() {
+    //     return "abc"
+    //   },
+    //   __proto__: {
+    //     address: "广州市"
+    //   }
+    // }
+
+    // console.log(obj.name, obj.age)
+    // console.log(obj.address)  // 去原型上找
+
+
+    // 1.hasOwnProperty() 实例方法
+    // console.log(obj.hasOwnProperty("name"))
+    // console.log(obj.hasOwnProperty("address"))
+
+    // 2.Object.hasOwn() 类方法(新)
+    // console.log(Object.hasOwn(obj, "name"))
+    // console.log(Object.hasOwn(obj, "address"))
+
+
+    // 2.和hasOwnProperty的区别二:
+    // Object.create()创建一个新对象obj,且让新对象obj的隐式原型指向()中
+    const info = Object.create(null)
+    info.name = "why"
+    // console.log(info.hasOwnProperty("name"))
+    console.log(Object.hasOwn(info, "name"))
+
+  </script>
+
+</body>
+</html>

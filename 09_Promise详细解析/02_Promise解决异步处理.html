@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      console.log("script start 1111111");
+      function execCode(counter) {
+        console.log("exec start 2222222");
+        const promise = new Promise((resolve, reject) => {
+          console.log("promise start 3333333");
+          // 该回调函数会立即执行
+          // 异步任务
+          setTimeout(() => {
+            // counter可以计算的情况
+            if (counter > 0) {
+              let total = 0;
+              for (let i = 0; i < counter; i++) {
+                total += i;
+              }
+              console.log("resolve之前 7777777");
+              // 成功的回调 resolve -> then
+              resolve(total);
+              // 失败情况, counter有问题
+              console.log("resolve之后 8888888");
+            } else {
+              console.log("reject之前 7777777");
+              // 失败的回调 reject -> catch
+              reject(`${counter}有问题`);
+              console.log("reject之后 8888888");
+            }
+          }, 3000);
+          console.log("promise end 4444444");
+        });
+        console.log("exec end 55555");
+        return promise;
+      }
+
+      // const promise = execCode(100);
+      // promise.then((value) => {
+      //   console.log("成功有了结果: ", value);
+      // });
+      // promise.catch((err) => {
+      //   console.log("失败有了错误: ", err);
+      // });
+
+      // const promise2 = execCode(-100)
+      // promise2.then(value => {
+      //   console.log("成功:", value)
+      // })
+      // promise2.catch(err => {
+      //   console.log("失败:", err)
+      // })
+
+      // 执行一次
+      execCode(-10)
+        .then((value) => {
+          console.log("resolve成功:9999999", value);
+        })
+        .catch((err) => {
+          console.log("reject失败:99999999", err);
+        });
+      console.log("script end 6666666");
+    </script>
+  </body>
+</html>

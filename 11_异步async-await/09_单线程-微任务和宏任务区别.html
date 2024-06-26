@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+
+    console.log("script start")
+
+    // function bar() {
+    //   console.log("bar function")
+    // }
+
+    // function foo() {
+    //   console.log("foo function")
+    //   bar()
+    // }
+    // foo()
+
+
+    // 策略:在每执行一个宏任务之前,先清空所有微任务
+
+    // 1.定时器:宏任务队列macrotask
+    // ajax,setTimeout,setInterval,DOM监听,UI Rendering
+    setTimeout(() => {
+      console.log("setTimeout0")
+    }, 0)
+    setTimeout(() => {
+      console.log("setTimeout1")
+    }, 0)
+
+    // 2.Promise:微任务队列microtask
+    // Promise的then回调,Mutation Observer API,queueMicrotask()
+    // Promise中的回调函数(resolve, reject) => {} 会在执行上下文栈中立即执行,不会添加到事件队列
+    // 但在回调函数中resolve()后,Promise中的then的回调也会被添加到队列中
+    console.log("1111111")
+    new Promise((resolve, reject) => {
+      console.log("2222222")
+      console.log("-------1")
+      console.log("-------2")
+      resolve()
+      console.log("-------3")
+    }).then(res => {
+      console.log("then传入的回调: res", res)
+    })
+    console.log("3333333")
+
+    console.log("script end")
+
+  </script>
+
+</body>
+</html>

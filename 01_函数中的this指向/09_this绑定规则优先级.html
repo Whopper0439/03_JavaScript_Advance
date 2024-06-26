@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+
+    // 比较优先级:
+
+    // 1.显式绑定绑定的优先级高于隐式绑定
+    // function foo() {
+    //   console.log("foo:", this)
+    // }
+
+    // 1.1.测试一:apply高于默认绑定
+    // var obj = { foo: foo }
+    
+    // obj.foo()  // obj
+    // foo.apply("aaa")  // aaa
+    // foo.call("bbb")  // bbb
+    // obj.foo.apply("ccc") // ccc
+    // obj.foo.call("ddd")  // ddd
+
+
+    // 1.2.测试二:bind高于默认绑定
+    // var bar = foo.bind("aaa")
+    // var obj = {
+    //   name: "why",
+    //   baz: bar
+    // }
+    // obj.baz()  // aaa
+
+
+    // 2.new绑定优先级高于隐式绑定
+    // var obj = {
+    //   name: "why",
+    //   foo: function() {
+    //     console.log("foo:", this)
+    //     console.log("foo:", this === obj)
+    //   }
+    // }
+    // obj.foo() // obj = {name: 'why', foo: ƒ} , true
+    // new obj.foo() // foo {} , false
+
+
+    // 3.new/显式
+    // 3.1. new不可以和apply/call一起使用
+
+    // 3.2. new优先级高于bind
+    // function foo() {
+    //   console.log("foo:", this)
+    // }
+    // var bindFn = foo.bind("aaa")
+    // bindFn() // String {'aaa'}
+    // new bindFn() // foo {}
+
+
+    // 4.bind/apply优先级
+    // bind优先级高于apply/call
+    function foo() {
+      console.log("foo:", this)
+    }
+    var bindFn = foo.bind("aaa")
+    bindFn()  // aaa
+    bindFn.call("bbb")  // aaa
+
+  </script>
+
+</body>
+</html>

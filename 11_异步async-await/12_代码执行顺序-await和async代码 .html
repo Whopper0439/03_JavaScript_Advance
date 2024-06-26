@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1.直接执行:script start
+      console.log("script start 11111111");
+
+      // 定义函数并不是执行函数,函数调用时才执行
+      // return xxx -> xxx有结果了才能返回,所以xxx要先执行,再执行return
+      function requestData(url) {
+        console.log("requestData 33333333");
+        return new Promise((resolve) => {
+          console.log("promise 44444444");
+          setTimeout(() => {
+            console.log("setTimeout start 66666666");
+            resolve(url);
+            console.log("setTimeout over 66666666");
+          }, 2000);
+          console.log("promise 44444444");
+        });
+      }
+
+      // 异步函数调用,默认和普通函数一样立即执行
+      async function getData() {
+        console.log("getData start 22222222");
+        const res = await requestData("why");
+
+        console.log("then1-res 77777777:", res);
+        console.log("getData end 88888888");
+      }
+
+      getData();
+      // 2.异步函数调用getData(),直接执行:getData start
+      // 3.函数调用requestData("why"),直接执行:requestData
+      //   return xxx -> xxx有结果了才能返回,所以xxx要先执行,再执行return
+      /* new Promise 中传入的回调函数()=>{}直接执行, setTimeout交由浏览器处理
+         resolve()后,await等到结果,异步函数中其余代码才继续执行(加入微任务队列)
+      */
+      // await必须等到promise的resolve()有结果才执行,异步函数中其余代码均卡着不执行,异步函数其余代码要等到resolve后加入微任务队列
+
+      // 4.await不影响异步函数外层,直接执行:script end ,此时 执行上下文栈为空
+      console.log("script end 55555555"); // 易错
+
+      // 等待2s后,计时结束,浏览器将setTimeout加入宏任务队列
+      // 5.此时,微任务队列为空,执行宏任务setTimeout,setTimeout放入执行上下文栈,即直接执行:setTimeout
+      //   resolve("why")后,await等到结果,异步函数中其余代码才继续执行,异步函数其余代码加入微任务队列
+      // 6.继续执行宏任务setTimeout中resolve()后续代码,直接执行:setTimeout over
+
+      // 7.清空微任务队列,直接执行: then1-res:why
+      // 8.直接执行: getData end
+
+      // script start
+      // getData start
+      // requestData
+      // script end
+      // setTimeout
+      // setTimeout over
+      // then1-res: why
+      // getData end
+    </script>
+  </body>
+</html>

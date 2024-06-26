@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      async function async1() {
+        console.log("async1 start 22222222");
+        await async2();
+        console.log("async1 end 66666666");
+      }
+
+      async function async2() {
+        console.log("async2 33333333");
+      }
+
+      // 1.直接执行:script start
+      console.log("script start 11111111");
+
+      // setTimeout加入宏任务
+      setTimeout(function () {
+        console.log("setTimeout 88888888");
+      }, 0);
+
+      // 2.调用异步函数async1(),直接执行:async1 start
+      // 3.调用异步函数async2(),直接执行:async2
+      //   异步函数结尾默认返回 return:undefined 等价于=> Promise.resolve(undefined)
+      //   异步函数sync1()后续代码会await卡住等待,直到等待到async2()的resolve()结果,
+      //   收到async2()的resolve()后,异步函数sync1()卡住的后续代码会作为整体加入微任务队列
+      async1();
+
+      // await不影响异步函数外层,执行上下文栈不为空,外层继续执行
+      // 4.new Promise中传入的回调函数()=>{}直接执行:promise1
+      //   resolve()后,promise对应的.then加入微任务队列
+      new Promise(function (resolve) {
+        console.log("promise1 44444444");
+        resolve();
+      }).then(function () {
+        console.log("promise2 77777777");
+      });
+
+      // 5.直接执行:script end, 此时执行上下文栈为空
+      console.log("script end 55555555");
+
+      // 6.清空微任务队列 -> 直接执行:async1 end
+      // 7.清空微任务队列 -> 直接执行:promise2
+      // 8.执行一个宏任务 -> 直接执行:setTimeout
+
+      // 异步函数中,
+      // await后面的代码 跟随上面的代码执行
+      // await前面的代码 跟随下面的代码执行(等待await后面的代码resolve()后,作为整体加入微任务队列,再等待执行)
+
+      // script start
+      // async1 start
+      // async2
+      // promise1
+      // script end
+      // async1 end
+      // promise2
+      // setTimeout
+    </script>
+  </body>
+</html>

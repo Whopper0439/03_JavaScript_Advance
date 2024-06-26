@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    // 你不知道的JavaScript(上中下)
+    // 隐式绑定:对象
+    // 1.通过对象调用,obj
+    function foo() {
+      console.log("foo函数:", this)
+    }
+
+    var obj = {
+      name: "obj",
+      bar: foo
+    }
+
+    obj.bar()
+
+
+    // 2.最邻近的调用对象,obj1
+    var obj1 = {
+      name: "obj1",
+      foo: foo
+    }
+
+    var obj2 = {
+      name: "obj2",
+      baz: obj1
+    }
+
+    obj2.baz.foo();
+
+  </script>
+
+</body>
+</html>

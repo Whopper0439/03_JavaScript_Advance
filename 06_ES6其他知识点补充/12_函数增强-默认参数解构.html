@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+
+    // 1.解构的回顾
+    // const obj = { name: "why" }
+    // const { name , age } = obj
+
+    // const { name = "kobe", age = 18 } = obj
+
+    // 2.函数的默认值是一个对象
+    // function foo(obj = { name: "why", age: 18 }) {
+    //   console.log(obj.name, obj.age)
+    // }
+
+    function foo({ name, age } = { name: "why", age: 18 }) {
+      console.log(name, age)
+    }
+
+    // 传参时,空对象{}作为默认值,再对空对象{}进行解构,判断解构对象中有没有name,age,没有就给默认值
+    function foo({ name = "why", age = 18 } = {}) {
+      console.log(name, age)
+    }
+
+    foo()
+
+  </script>
+
+</body>
+</html>

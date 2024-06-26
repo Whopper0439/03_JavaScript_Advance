@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+
+    // 将infos变成一个可迭代对象
+    /*
+      1.必须实现一个特定的函数: [Symbol.iterator]
+      2.这个函数需要返回一个迭代器(这个迭代器用于迭代当前的对象)
+    */
+
+    // 1.迭代infos中friends
+    //   优化:将infos.friends.length -> this.friends.length,使this指向infos
+    // 1.1 iterator.next( this )   next通过iterator调用,所以next中的this指向iterator  
+    // 1.2 让this向上层作用域找 -> next()改成箭头函数=>,箭头函数不绑定this
+    // 1.3 对象{ }不会形成作用域
+    // 1.4 找到函数[Symbol.iterator]( this ),通过infos调用,所以[Symbol.iterator]中的this指向infos 
+
+    // const infos = {
+    //   friends: ["kobe", "james", "curry"],
+    //   [Symbol.iterator]: function() {
+    //     let index = 0
+    //     const infosIterator = {
+    //       next: () => {  //重点:箭头函数不绑定this,向上层作用域继续寻找this对象
+    //         if (index < this.friends.length) {
+    //           return { done: false, value: this.friends[index++] }
+    //         } else {
+    //           return { done: true }
+    //         }
+    //       }
+    //     }
+    //     return infosIterator
+    //   }
+    // }
+
+    // 给infos创建一个迭代器, 迭代infos中的friends
+    // const infosIterator = infos[Symbol.iterator]()
+    // console.log(infosIterator.next())
+    // console.log(infosIterator.next())
+    // console.log(infosIterator.next())
+    // console.log(infosIterator.next())
+
+
+
+    // 2.迭代infos中的key/value
+    // 注意:对象{ }本身不可迭代  is not iterable,不能for of遍历
+    const infos = {
+      name: "why",
+      age: 18,
+      height: 1.88,
+
+      [Symbol.iterator]: function() {
+        // const keys = Object.keys(this)
+        // const values = Object.values(this)
+        const entries = Object.entries(this)
+        let index = 0
+        const iterator = {
+          next: function() {
+            if (index < entries.length) {
+              // return { done: false, value: keys[index++] }
+              // return { done: false, value: values[index++] }
+              return { done: false, value: entries[index++] }
+            } else {
+              return { done: true }
+            }
+          }
+        }
+        return iterator
+      }
+    }
+
+    // 可迭对象可以进行for of操作
+    for (const item of infos) {
+      // console.log(item)
+      const [key, value] = item
+      console.log(key, value)
+    }
+
+  </script>
+
+</body>
+</html>

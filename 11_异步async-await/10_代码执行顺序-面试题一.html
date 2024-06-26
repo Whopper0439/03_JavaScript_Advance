@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1.直接执行:script start
+      console.log("script start 11111111");
+
+      // 计时器1:0s,回调函数加入宏任务队列
+      setTimeout(function () {
+        console.log("setTimeout1 10 10 10 10 10 10");
+        new Promise(function (resolve) {
+          resolve();
+        }).then(function () {
+          new Promise(function (resolve) {
+            resolve();
+          }).then(function () {
+            console.log("then4 12 12 12 12 12 12");
+          });
+          console.log("then2 11 11 11 11 11 11"); // 难点
+        });
+        console.log("setTimeout1 10 10 10 10 10 10 10"); // setTimeout仍在全局执行上下文栈中执行,继续执行全局
+      }, 0);
+
+      // 2.new Promise中传入的回调函数()=>{}直接执行:promise1
+      // resolve()后,promise对应的then1加入微任务队列
+      new Promise(function (resolve) {
+        console.log("promise1 22222222");
+        resolve();
+        console.log("promise1 22222222");
+      }).then(function () {
+        console.log("then1 77777777");
+      });
+
+      // 计时器2:0s,回调函数加入宏任务队列
+      setTimeout(function () {
+        console.log("setTimeout2 13 13 13 13 13 13");
+      });
+
+      // 3.直接执行:3
+      console.log("33333333");
+
+      // queueMicrotask():回调函数加入微任务队列
+      queueMicrotask(() => {
+        console.log("queueMicrotask1 88888888");
+      });
+
+      // new Promise中传入的回调函数()=>{}直接执行
+      // resolve()后,promise对应的then3加入微任务队列
+      new Promise(function (resolve) {
+        console.log("44444444");
+        resolve();
+        console.log("55555555");
+      }).then(function () {
+        console.log("then3 99999999");
+      });
+
+      // 4.直接执行:script end
+      // 此时执行上下文栈为空,开始处理任务队列
+      // 策略:在每执行一个宏任务之前,先清空所有微任务
+      console.log("script end 66666666");
+
+      // 清空所有微任务->5.执行:then1
+      // 清空所有微任务->6.执行:queueMicrotask1
+      // 清空所有微任务->7.执行:then3
+      // 执行一个宏任务->8.执行:setTimeout1
+      /*
+       setTimeout1:new Promise传入的回调函数直接执行
+                   resolve()后promise对应的then加入微任务队列:then4+then2
+    
+    */
+
+      // 尽量不要在微任务中添加微任务到微任务队列,因为宏任务会无限延后
+      /* 清空所有微任务->new Promise传入的回调函数直接执行
+       resolve()后promise对应的then加入微任务队列:then4
+       该次微任务继续,9.直接执行:then2
+    */
+      /* 清空所有微任务->10.直接执行:then4
+       */
+      // 执行一个宏任务->11.执行:setTimeout2
+    </script>
+  </body>
+</html>
