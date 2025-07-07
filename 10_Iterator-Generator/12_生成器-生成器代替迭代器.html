@@ -31,7 +31,8 @@
 
       /* 理解：
        1.生成器是特殊的迭代器
-       2.yield xxx -> xxx 即为 generator.next() 的返回值，即 Iterator.next() 的返回值
+       2.yield xxx -> xxx 即为 generator.next() 的返回值对象中的value ，
+                          即 Iterator.next() 的返回值对象中的value
     */
       function* createArrayIterator(arr) {
         for (let i = 0; i < arr.length; i++) {
@@ -46,19 +47,19 @@
       /* 调用生成器函数，函数不会执行，只会返回一个生成器对象
        当调用 生成器对象.next[] 时，函数才真正执行
     */
-      // const namesIterator = createArrayIterator(names)
-      // console.log(namesIterator.next())
-      // console.log(namesIterator.next())
-      // console.log(namesIterator.next())
-      // console.log(namesIterator.next())
+      const namesIterator = createArrayIterator(names);
+      console.log(namesIterator.next());
+      console.log(namesIterator.next());
+      console.log(namesIterator.next());
+      console.log(namesIterator.next());
 
-      // const numsIterator = createArrayIterator(nums)
-      // console.log(numsIterator.next())
-      // console.log(numsIterator.next())
-      // console.log(numsIterator.next())
-      // console.log(numsIterator.next())
-      // console.log(numsIterator.next())
-      // console.log(numsIterator.next())
+      const numsIterator = createArrayIterator(nums);
+      console.log(numsIterator.next());
+      console.log(numsIterator.next());
+      console.log(numsIterator.next());
+      console.log(numsIterator.next());
+      console.log(numsIterator.next());
+      console.log(numsIterator.next());
 
       // 2.生成器函数, 可以生成某个范围的值
       // [3, 9)

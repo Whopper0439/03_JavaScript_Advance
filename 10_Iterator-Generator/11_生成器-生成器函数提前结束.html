@@ -26,19 +26,19 @@
 
       const generator = foo("next1");
 
-      // 1.generator.return提前结束函数
-      console.log(generator.next());
-      console.log(generator.return("next2")); // 333 444不执行,直接return value=next2,done=true
-      console.log("-------------------");
-      console.log(generator.next("next3"));
-      console.log(generator.next("next4"));
-
       // 2.generator.throw向函数抛出一个异常
-      // console.log(generator.next())
-      // console.log(generator.throw(new Error("next2 throw error")))  // 异常
-      // console.log("-------------------")
-      // console.log(generator.next("next3"))
-      // console.log(generator.next("next4"))
+      console.log(generator.next()); // 1111 next1  2222 next1  {value: 'aaaa', done: false}
+      console.log(generator.throw(new Error("next2 throw error"))); // 异常
+      console.log("-------------------"); // 不执行
+      console.log(generator.next("next3")); // 不执行
+      console.log(generator.next("next4")); // 不执行
+
+      // 1.generator.return提前结束函数
+      // console.log(generator.next()); // 1111 next1  2222 next1  {value: 'aaaa', done: false}
+      // console.log(generator.return("next2")); // 333 444不执行,直接return {value: 'next2', done: true}
+      // console.log("-------------------"); // -------------------
+      // console.log(generator.next("next3")); // {value: undefined, done: true}
+      // console.log(generator.next("next4")); // {value: undefined, done: true}
     </script>
   </body>
 </html>
