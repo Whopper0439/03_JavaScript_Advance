@@ -1,61 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-  <script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1.then方法是返回一个新的Promise,
+      // 这个新Promise的决议是等到then方法传入的回调函数有返回值时, 进行决议
+      // Promise本身就是支持链式调用
+      // then方法是返回一个新的Promise, 链式中的then是在等待这个新的Promise有决议之后执行的
+      // const promise = new Promise((resolve, reject) => {
+      //   resolve("aaaaaaa");
+      //   // reject()
+      // });
+      // promise
+      //   .then((res) => {
+      //     console.log("11111第一个then方法:", res); // aaaaaaa
+      //     return "bbbbbbbb";
+      //   })
+      //   .then((res) => {
+      //     console.log("33333第二个then方法:", res); // bbbbbbb
+      //     return "cccccccc";
+      //   })
+      //   .then((res) => {
+      //     console.log("44444第三个then方法:", res); // ccccccc
+      //   });
 
-    const promise = new Promise((resolve, reject) => {
-      resolve("aaaaaaa")
-      // reject()
-    })
+      // promise.then((res) => {
+      //   console.log("22222添加第二个then方法:", res); // aaaaaaa
+      // });
 
-    // 1.then方法是返回一个新的Promise, 这个新Promise的决议是等到then方法传入的回调函数有返回值时, 进行决议
-    // Promise本身就是支持链式调用
-    // then方法是返回一个新的Promise, 链式中的then是在等待这个新的Promise有决议之后执行的
-    promise.then(res => {
-      console.log("第一个then方法:", res)
-      return "bbbbbbbb"
-    }).then(res => {
-      console.log("第二个then方法:", res)
-      return "cccccccc"
-    }).then(res => {
-      console.log("第三个then方法:", res)
-    })
+      // 2.then方法传入回调函数的返回值类型
+      const promise = new Promise((resolve, reject) => {
+        // resolve("aaaaaaa");
+        reject();
+      });
+      const newPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve("why");
+        }, 3000);
+      });
 
-    promise.then(res => {
-      console.log("添加第二个then方法:", res)
-    })
-
-    // 2.then方法传入回调函数的返回值类型
-    // const newPromise = new Promise((resolve, reject) => {
-    //   setTimeout(() => {
-    //     resolve("why")
-    //   }, 3000)
-    // })
-
-    // promise.then(res => {
-    //   console.log("第一个Promise的then方法:", res)
-    //   // 1.普通值
-    //   // return "bbbbbbb"
-    //   // 2.新的Promise
-    //   // return newPromise
-    //   // 3.thenable的对象
-    //   return {
-    //     then: function(resolve) {
-    //       resolve("thenable")
-    //     }
-    //   }
-    // }).then(res => {
-    //   console.log("第二个Promise的then方法:", res) // undefined
-    // })
-
-  </script>
-
-</body>
+      promise
+        .then((res) => {
+          console.log("11111第一个Promise的then方法:", res); // aaaaaaa
+          // 1.普通值
+          // 2.新的Promise
+          // 3.thenable的对象
+          return {
+            then: function (resolve) {
+              resolve("thenable");
+            },
+          };
+        })
+        .then((res) => {
+          console.log("22222第二个Promise的then方法:", res); // thenable
+          return newPromise;
+        })
+        .then((res) => {
+          console.log("33333第三个Promise的then方法:", res); // 等待三秒后  why
+        })
+        .then((res) => {
+          console.log("44444第四个Promise的then方法:", res); // undefined 默认值
+        });
+    </script>
+  </body>
 </html>

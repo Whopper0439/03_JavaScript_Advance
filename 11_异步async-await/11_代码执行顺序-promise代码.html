@@ -8,7 +8,7 @@
   </head>
   <body>
     <script>
-      // 1.直接执行:script start
+      // 1.直接执行:script start 11111111
       console.log("script start 11111111");
 
       // 定义函数并不是执行函数,函数调用时才执行
@@ -32,23 +32,24 @@
       }
 
       getData();
-      // 2.函数调用getData(),直接执行:getData start
-      // 3.函数调用requestData("why"),直接执行:requestData
+      // 2.函数调用getData(),直接执行:getData start 22222222
+      // 3.函数调用requestData("why"),直接执行:requestData 33333333
       //   return xxx -> xxx有结果了才能返回,所以xxx要先执行,再执行return
       /* new Promise 中传入的回调函数()=>{}直接执行, setTimeout交由浏览器处理
+         setTimeout立即执行,执行结果理解为:2秒后执行setTimeout的回调函数()=>{} , 加入宏任务队列
          resolve()后,promise对应的then1加入微任务队列
       */
-      // .then直到等到promise的resolve()再执行
+      // .then直到等到promise的resolve()再执行, 加入微任务队列
 
-      // 4.直接执行:getData end
-      // 5.直接执行:script end, 此时 执行上下文栈为空
+      // 4.直接执行:getData end 44444444
+      // 5.直接执行:script end 55555555, 此时 执行上下文栈为空
       console.log("script end 55555555");
 
       // 等待2s后,计时结束,浏览器将setTimeout加入宏任务队列
-      // 6.此时,微任务队列为空,执行宏任务setTimeout,直接执行:setTimeout
+      // 6.此时,微任务队列为空,执行宏任务setTimeout,直接执行:setTimeout 66666666
       //   resolve("why")后,promise对应的then1-res加入微任务队列
-      // 7.直接执行:setTimeout over
-      // 8.清空微任务队列,直接执行: then1-res:why
+      // 7.直接执行:setTimeout over 7777777711
+      // 8.清空微任务队列,直接执行: then1-res:why 88888888
 
       // script start
       // getData start

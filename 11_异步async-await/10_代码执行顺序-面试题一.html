@@ -24,7 +24,8 @@
           });
           console.log("then2 11 11 11 11 11 11"); // 难点
         });
-        console.log("setTimeout1 10 10 10 10 10 10 10"); // setTimeout仍在全局执行上下文栈中执行,继续执行全局
+        // setTimeout仍在全局执行上下文栈中执行,继续执行全局
+        console.log("setTimeout1 10 10 10 10 10 10 10");
       }, 0);
 
       // 2.new Promise中传入的回调函数()=>{}直接执行:promise1

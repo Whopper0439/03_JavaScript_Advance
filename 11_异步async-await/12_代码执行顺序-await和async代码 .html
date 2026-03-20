@@ -8,7 +8,7 @@
   </head>
   <body>
     <script>
-      // 1.直接执行:script start
+      // 1.直接执行:script start 11111111
       console.log("script start 11111111");
 
       // 定义函数并不是执行函数,函数调用时才执行
@@ -36,24 +36,29 @@
       }
 
       getData();
-      // 2.异步函数调用getData(),直接执行:getData start
-      // 3.函数调用requestData("why"),直接执行:requestData
+      // 2.异步函数调用getData(),直接执行:getData start 22222222
+      // 3.函数调用requestData("why"),直接执行:requestData 33333333
       //   return xxx -> xxx有结果了才能返回,所以xxx要先执行,再执行return
       /* new Promise 中传入的回调函数()=>{}直接执行, setTimeout交由浏览器处理
-         resolve()后,await等到结果,异步函数中其余代码才继续执行(加入微任务队列)
+         setTimeout直接执行,执行结果: 2秒后将setTimeout传入的回调函数加入宏任务队列
+
+         resolve()后,await等到结果, 即resolve()中传入的参数,
+         异步函数中其余代码才继续执行(加入微任务队列)
       */
-      // await必须等到promise的resolve()有结果才执行,异步函数中其余代码均卡着不执行,异步函数其余代码要等到resolve后加入微任务队列
+      // await必须等到promise中回调函数的resolve()后才执行,异步函数中其余代码均卡着不执行,
+      // 异步函数其余代码要等到resolve后加入微任务队列
 
       // 4.await不影响异步函数外层,直接执行:script end ,此时 执行上下文栈为空
       console.log("script end 55555555"); // 易错
 
-      // 等待2s后,计时结束,浏览器将setTimeout加入宏任务队列
-      // 5.此时,微任务队列为空,执行宏任务setTimeout,setTimeout放入执行上下文栈,即直接执行:setTimeout
+      // 等待2s后,计时结束,浏览器将setTimeout中的回调加入宏任务队列
+      // 5.此时,微任务队列为空,执行宏任务setTimeout中的回调,setTimeout中的回调放入执行上下文栈,
+      //   即直接执行:setTimeout start 66666666
       //   resolve("why")后,await等到结果,异步函数中其余代码才继续执行,异步函数其余代码加入微任务队列
-      // 6.继续执行宏任务setTimeout中resolve()后续代码,直接执行:setTimeout over
+      // 6.继续执行宏任务setTimeout回调中resolve()后续代码,直接执行:setTimeout over 66666666
 
-      // 7.清空微任务队列,直接执行: then1-res:why
-      // 8.直接执行: getData end
+      // 7.清空微任务队列,直接执行: then1-res 77777777:why
+      // 8.直接执行: getData end 88888888
 
       // script start
       // getData start

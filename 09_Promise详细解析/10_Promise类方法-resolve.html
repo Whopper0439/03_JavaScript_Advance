@@ -17,6 +17,11 @@
       //   console.log("then结果:", res)
       // })
 
+      // 相当于
+      // Promise.resolve("Hello World").then(res => {
+      //   console.log("then结果:", res)
+      // })
+
       // 类方法:已经有现成的结果,不需要异步一系列操作得到结果
       const studentList = [];
       const promise = Promise.resolve(studentList);
@@ -24,11 +29,6 @@
       promise.then((res) => {
         console.log("then结果:", res);
       });
-
-      // 相当于
-      // Promise.resolve("Hello World").then(res => {
-      //   console.log("then结果:", res)
-      // })
     </script>
   </body>
 </html>
