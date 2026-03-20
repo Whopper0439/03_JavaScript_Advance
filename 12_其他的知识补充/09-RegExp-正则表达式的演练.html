@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,3 +30,36 @@
     </script>
   </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 创建正则
+      const re1 = /abc/gi;
+
+      const message = "fdabc123 faBC323 dfABC222 A2324aaBc";
+
+      // 1.使用正则对象上的实例方法
+
+      // 2.使用字符串的方法, 传入一个正则表达式
+      // 需求: 将所有的abc(忽略大小写)换成cba
+      // const newMessage = message.replaceAll("abc", "cba")
+      // console.log(newMessage)
+
+      const newMessage = message.replaceAll(/abc/gi, "cba");
+      console.log(newMessage); // fdcba123 fcba323 dfcba222 A2324acba
+
+      // 需求: 将字符串中数字全部删除
+      const newMessage2 = message.replaceAll(/\d+/gi, "");
+      console.log(newMessage2); // fdabc faBC dfABC AaaBc
+    </script>
+  </body>
+</html>
+>>>>>>> 2343706e9e239f007c0b17b61f59b9e081c11107

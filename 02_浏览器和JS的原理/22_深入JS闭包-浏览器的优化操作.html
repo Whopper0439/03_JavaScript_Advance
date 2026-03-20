@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,3 +43,49 @@
     </script>
   </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // function foo() {
+      //   var name = "foo"
+      //   var age = 18 // 用不到,可以优化
+      //   var height = 1.88
+
+      //   function bar() {
+      //     debugger
+      //     console.log(name)
+      //   }
+
+      //   return bar
+      // }
+
+      // var fn = foo()
+      // fn()
+
+      // for (var i = 1; i <= 5; i++) {
+      //   setTimeout(function timer() {
+      //     console.log(i);
+      //   }, i * 1000);
+      // }
+
+      function A() {
+        let a = 1;
+        window.B = function () {
+          console.log(a);
+        };
+      }
+      console.log(a); // a is not defined
+      A();
+      B(); // 1
+    </script>
+  </body>
+</html>
+>>>>>>> 2343706e9e239f007c0b17b61f59b9e081c11107

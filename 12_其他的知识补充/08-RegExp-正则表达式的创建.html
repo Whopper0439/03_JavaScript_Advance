@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,3 +23,29 @@
     </script>
   </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 创建正则
+      // 1> 匹配的规则pattern
+      // 2> 匹配的修饰符flags
+      const re1 = new RegExp("abc", "ig");
+      const re2 = /abc/gi; // 我是注释
+
+      const message =
+        "{\"task_id\":\"ee612889ab1240c7950250198f45c8a7\",\"result\":\"我是321。\",\"status\":20000000,\"message\":\"SUCCESS\"}";
+      const re3 = /\"([^\"]*)\"/gi;
+      const result = message.match(re3);
+      console.log(result[3]);
+    </script>
+  </body>
+</html>
+>>>>>>> 2343706e9e239f007c0b17b61f59b9e081c11107
