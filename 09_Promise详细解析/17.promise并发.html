@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const axios = require("axios");
+
+      function multiRequest(urls, max = 5) {
+        return new Promise((resolve, reject) => {
+          const total = urls.length;
+          const result = new Array(total);
+          let nextIndex = 0; // 下一个要发起的请求索引
+          let completedCount = 0; // 已完成的请求数（成功或失败）
+          let isRejected = false; // 是否已经 reject
+
+          function next() {
+            // 如果已经出错或者所有请求都已发起并完成，则不再继续
+            if (isRejected) return;
+            if (nextIndex >= total && completedCount === total) {
+              // 所有请求都已完成（成功或失败），根据需求决定是否 reject
+              // 这里为了简单，只要有失败就整体 reject；你也可以改成部分成功部分失败
+              const hasError = result.some((item) => item instanceof Error);
+              if (hasError) {
+                reject(new Error("Some requests failed", { cause: result }));
+              } else {
+                resolve(result);
+              }
+              return;
+            }
+            // 还有未发起的请求
+            if (nextIndex < total) {
+              const idx = nextIndex++;
+              const url = urls[idx];
+              console.log(`请求 ${idx}: ${url}`);
+              axios
+                .get(`${url}?reqIndex=${idx}`)
+                .then((res) => {
+                  result[idx] = res.data;
+                  console.log(`响应 ${idx} 成功`);
+                })
+                .catch((err) => {
+                  result[idx] = err;
+                  console.error(`响应 ${idx} 失败`, err.message);
+                  // 如果希望一旦出错就立即终止整个请求，可以在这里 reject
+                  // isRejected = true;
+                  // reject(err);
+                  // return;
+                })
+                .finally(() => {
+                  completedCount++;
+                  next(); // 无论成功还是失败，都继续下一个
+                });
+            }
+          }
+
+          // 启动 max 个并发“通道”
+          for (let i = 0; i < Math.min(max, total); i++) {
+            next();
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

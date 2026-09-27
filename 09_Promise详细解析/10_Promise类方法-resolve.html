@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -24,7 +23,7 @@
       // })
 
       // 类方法:已经有现成的结果,不需要异步一系列操作得到结果
-      const studentList = [];
+      const studentList = ["a", "c"];
       const promise = Promise.resolve(studentList);
 
       promise.then((res) => {
@@ -33,39 +32,3 @@
     </script>
   </body>
 </html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <script>
-      // 实例方法
-      // const promise = new Promise((resolve, reject) => {
-      //  // 进行一系列的异步操作拿到结果 Hello World
-      //   resolve("Hello World")
-      // })
-      // promise.then((res) => {
-      //   console.log("then结果:", res)
-      // })
-
-      // 相当于
-      // Promise.resolve("Hello World").then(res => {
-      //   console.log("then结果:", res)
-      // })
-
-      // 类方法:已经有现成的结果,不需要异步一系列操作得到结果
-      const studentList = [];
-      const promise = Promise.resolve(studentList);
-
-      promise.then((res) => {
-        console.log("then结果:", res);
-      });
-    </script>
-  </body>
-</html>
->>>>>>> 2343706e9e239f007c0b17b61f59b9e081c11107

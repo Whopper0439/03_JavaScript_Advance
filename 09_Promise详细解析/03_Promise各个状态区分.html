@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -17,23 +16,23 @@
         console.log("222222");
         console.log("333333");
         // 2.兑现状态 fulfilled
-        // resolve("aaa");
+        resolve("aaa");
         // 3.拒绝状态 rejected
-        reject("error");
+        // reject("error");
       });
 
       promise
         .then((value) => {
-          console.log("成功的回调", value); // aaa
+          console.log("成功的回调", value);
         })
         .then((value) => {
-          console.log("成功的回调", value); // aaa
+          console.log("成功的回调", value);
         })
         .catch((err) => {
           console.log("失败的回调", err);
         })
         .then((value) => {
-          console.log("成功的回调", value); // aaa
+          console.log("成功的回调", value);
         });
 
       // executor回调函数会立即执行
@@ -41,47 +40,3 @@
     </script>
   </body>
 </html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <script>
-      // 1.创建一个Promise对象
-      const promise = new Promise((resolve, reject) => {
-        // 注意: Promise的状态一旦被确定下来, 就不会再更改, 也不能再执行某一个回调函数来改变状态
-        // 1.待定状态 pending
-        console.log("111111");
-        console.log("222222");
-        console.log("333333");
-        // 2.兑现状态 fulfilled
-        // resolve("aaa");
-        // 3.拒绝状态 rejected
-        reject("error");
-      });
-
-      promise
-        .then((value) => {
-          console.log("成功的回调", value); // aaa
-        })
-        .then((value) => {
-          console.log("成功的回调", value); // aaa
-        })
-        .catch((err) => {
-          console.log("失败的回调", err);
-        })
-        .then((value) => {
-          console.log("成功的回调", value); // aaa
-        });
-
-      // executor回调函数会立即执行
-      const promise2 = new Promise((resolve, reject) => {});
-    </script>
-  </body>
-</html>
->>>>>>> 2343706e9e239f007c0b17b61f59b9e081c11107

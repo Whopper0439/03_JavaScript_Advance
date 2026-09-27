@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -11,8 +10,8 @@
     <script>
       // 1.catch方法也会返回一个新的Promise
       // const promise = new Promise((resolve, reject) => {
-      //   // reject("error: aaaaa");
-      //   resolve("aaaaaa");
+      //   reject("error: aaaaa");
+      //   // resolve("aaaaaa");
       // });
       // promise
       //   .catch((err) => {
@@ -60,66 +59,3 @@
     </script>
   </body>
 </html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <script>
-      // 1.catch方法也会返回一个新的Promise
-      // const promise = new Promise((resolve, reject) => {
-      //   // reject("error: aaaaa");
-      //   resolve("aaaaaa");
-      // });
-      // promise
-      //   .catch((err) => {
-      //     console.log("catch回调:", err);
-      //     return "bbbbb";
-      //   })
-      //   .then((res) => {
-      //     console.log("then第一个回调:", res); // aaaaaa
-      //     return "ccccc";
-      //   })
-      //   .then((res) => {
-      //     console.log("then第二个回调:", res); // cccccc
-      //   });
-
-      // 2.catch方法的执行时机
-      const promise = new Promise((resolve, reject) => {
-        // reject("error: aaaaa");
-        resolve("aaaaaa");
-      });
-
-      promise
-        .then((res) => {
-          console.log("then第一次回调:", res); // aaaaaa
-          // throw new Error("第二个Promise的异常error");
-          return "bbbbbb";
-        })
-        .then((res) => {
-          console.log("then第二次回调:", res); // bbbbbb
-          throw new Error("第三个Promise的异常error");
-        })
-        .then((res) => {
-          console.log("then第三次回调:", res); // 不会执行
-        })
-        .catch((err) => {
-          console.log("catch回调被执行:", err); // resolve: 第三个Promise的异常error   reject: error: aaaaa
-        });
-
-      promise.catch((err) => {
-        console.log("catch回调被执行:", err); // error: aaaaa
-      });
-      // 中断函数继续执行:
-      // 方式一: return
-      // 方式二: throw new Error()
-      // 方式三: yield 暂停(暂时性的中断)
-    </script>
-  </body>
-</html>
->>>>>>> 2343706e9e239f007c0b17b61f59b9e081c11107

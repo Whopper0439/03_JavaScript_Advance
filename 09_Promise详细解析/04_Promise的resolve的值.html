@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,77 +8,40 @@
   </head>
   <body>
     <script>
-      const p = new Promise((resolve) => {
+      const p = new Promise((resolve, reject) => {
         // setTimeout(resolve, 2000)
         setTimeout(() => {
           resolve("p的resolve");
+          // reject("p的reject");
         }, 2000);
       });
 
       const promise = new Promise((resolve, reject) => {
         // 1.普通值
-        resolve([
-          { name: "macbook", price: 9998, intro: "有点贵" }, // [{},{}]
-          { name: "iPhone", price: 9.9, intro: "有点便宜" },
-        ]);
+        // resolve([
+        //   { name: "macbook", price: 9998, intro: "有点贵" }, // [{},{}]
+        //   { name: "iPhone", price: 9.9, intro: "有点便宜" },
+        // ]);
         // 2.resolve(promise)
         // 如果resolve的值本身Promise对象, 那么当前的Promise的状态会由传入的Promise来决定
-        resolve(p); // p的resolve
+        // resolve(p); // p的resolve
         // 3.resolve(thenable对象)
         resolve({
           name: "kobe",
-          then: function (resolve) {
+          then: function (resolve, reject) {
             resolve(11111); // 111
+            // reject(22222);
           },
         });
       });
 
-      promise.then((res) => {
-        console.log("then中拿到结果:", res);
-      });
-    </script>
-  </body>
-</html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <script>
-      const p = new Promise((resolve) => {
-        // setTimeout(resolve, 2000)
-        setTimeout(() => {
-          resolve("p的resolve");
-        }, 2000);
-      });
-
-      const promise = new Promise((resolve, reject) => {
-        // 1.普通值
-        resolve([
-          { name: "macbook", price: 9998, intro: "有点贵" }, // [{},{}]
-          { name: "iPhone", price: 9.9, intro: "有点便宜" },
-        ]);
-        // 2.resolve(promise)
-        // 如果resolve的值本身Promise对象, 那么当前的Promise的状态会由传入的Promise来决定
-        resolve(p); // p的resolve
-        // 3.resolve(thenable对象)
-        resolve({
-          name: "kobe",
-          then: function (resolve) {
-            resolve(11111); // 111
-          },
+      promise
+        .then((res) => {
+          console.log("then中拿到结果:", res);
+        })
+        .catch((err) => {
+          console.log("catch中拿到错误:", err);
         });
-      });
-
-      promise.then((res) => {
-        console.log("then中拿到结果:", res);
-      });
     </script>
   </body>
 </html>
->>>>>>> 2343706e9e239f007c0b17b61f59b9e081c11107

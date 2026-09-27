@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,48 +41,3 @@
     </script>
   </body>
 </html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <script>
-      const promise = new Promise((resolve, reject) => {
-        resolve("success");
-        // reject("failure")
-      });
-
-      // promise.then(res => {
-      // }).catch(err => {
-      // })
-
-      // 1.then参数的传递方法: 可以传递两个参数
-      // 这种写法也是可以的
-      promise.then(
-        (res) => {
-          console.log("成功回调~", res);
-        },
-        (err) => {
-          console.log("失败回调~", err);
-        }
-      );
-
-      // 2.一次resolve,可以执行多个then
-      promise.then((res) => {
-        console.log("成功回调1~", res);
-      });
-      promise.then((res) => {
-        console.log("成功回调2~", res);
-      });
-      promise.then((res) => {
-        console.log("成功回调3~", res);
-      });
-    </script>
-  </body>
-</html>
->>>>>>> 2343706e9e239f007c0b17b61f59b9e081c11107
